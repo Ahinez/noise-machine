@@ -7,7 +7,7 @@ export const useAudio = (sounds: Static[], defaultIndex: number) => {
   const gainRef = useRef<GainNode | null>(null);
   const indexRef = useRef(defaultIndex);
   const [currentIndex, setCurrentIndex] = useState(defaultIndex);
-  const [isPlaying, setIsPlaying] = useState(true);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   const switchTo = useCallback(
     async (index: number) => {
@@ -48,7 +48,7 @@ export const useAudio = (sounds: Static[], defaultIndex: number) => {
 
       indexRef.current = index;
       setCurrentIndex(index);
-      setIsPlaying(true);
+      setIsPlaying(context.state === "running");
     },
     [sounds],
   );
@@ -58,6 +58,7 @@ export const useAudio = (sounds: Static[], defaultIndex: number) => {
     contextRef.current = context;
 
     const gain = context.createGain();
+    gain.connect(context.destination);
     gainRef.current = gain;
 
     switchTo(defaultIndex);

@@ -54,11 +54,7 @@ const PlayerBar = ({
       <Btn
         onClick={onPlayPause}
         title={isPlaying ? "Pause" : "Play"}
-        style={{
-          background: "rgba(136, 57, 239, 0.12)",
-          width: 48,
-          height: 48,
-        }}
+        style={{ width: 48, height: 48 }}
       >
         {isPlaying ? (
           <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -73,7 +69,7 @@ const PlayerBar = ({
 
       <Btn onClick={onNext} title="Next">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M6 18l8.5-6L6 6v12zm8.5-6V6l-8.5 6 8.5 6V12zm2-6h2v12h-2V6z" />
+          <path d="M6 18l8.5-6L6 6v12zM14.5 6v12h2V6h-2z" />
         </svg>
       </Btn>
 
