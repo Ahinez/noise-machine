@@ -20,7 +20,7 @@ React 19 · TypeScript · Web Audio API · Canvas API · Vite
 ## Run locally
 
 ```bash
-git clone https://github.com/you/noise-machine
+git clone https://github.com/Ahinez/noise-machine
 cd noise-machine
 npm install
 npm run dev
