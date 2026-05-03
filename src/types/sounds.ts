@@ -3,10 +3,3 @@ export type Static = {
   name: string;
   source: string;
 };
-
-export type Dynamic = {
-  isPlaying: boolean;
-  volume: number;
-};
-
-export type Sound = Static & Dynamic;

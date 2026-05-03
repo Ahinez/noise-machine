@@ -1,0 +1,64 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #eff1f5;
+  overflow: hidden;
+}
+
+.nm-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #4c4f69;
+  transition: background 0.15s;
+  flex-shrink: 0;
+}
+
+.nm-btn:hover {
+  background: rgba(156, 160, 176, 0.35);
+}
+
+.nm-btn:active {
+  background: rgba(156, 160, 176, 0.55);
+}
+
+.nm-volume {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 80px;
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(156, 160, 176, 0.5);
+  outline: none;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.nm-volume::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #8839ef;
+  cursor: pointer;
+}
+
+.nm-volume::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #8839ef;
+  cursor: pointer;
+  border: none;
+}
