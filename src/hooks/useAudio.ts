@@ -5,7 +5,6 @@ export const useAudio = (sounds: Static[], defaultIndex: number) => {
   const contextRef = useRef<AudioContext | null>(null);
   const sourceRef = useRef<AudioBufferSourceNode | null>(null);
   const gainRef = useRef<GainNode | null>(null);
-  const analyserRef = useRef<AnalyserNode | null>(null);
   const indexRef = useRef(defaultIndex);
   const [currentIndex, setCurrentIndex] = useState(defaultIndex);
   const [isPlaying, setIsPlaying] = useState(true);
@@ -51,7 +50,7 @@ export const useAudio = (sounds: Static[], defaultIndex: number) => {
       setCurrentIndex(index);
       setIsPlaying(true);
     },
-    [sounds]
+    [sounds],
   );
 
   useEffect(() => {
@@ -61,12 +60,6 @@ export const useAudio = (sounds: Static[], defaultIndex: number) => {
     const gain = context.createGain();
     gainRef.current = gain;
 
-    const analyser = context.createAnalyser();
-    analyserRef.current = analyser;
-
-    gain.connect(analyser);
-    analyser.connect(context.destination);
-
     switchTo(defaultIndex);
 
     return () => {
@@ -75,7 +68,6 @@ export const useAudio = (sounds: Static[], defaultIndex: number) => {
   }, [switchTo, defaultIndex]);
 
   return {
-    analyserRef,
     isPlaying,
     currentIndex,
     currentSound: sounds[currentIndex],
@@ -88,7 +80,8 @@ export const useAudio = (sounds: Static[], defaultIndex: number) => {
       setIsPlaying(true);
     },
     next: () => switchTo((indexRef.current + 1) % sounds.length),
-    prev: () => switchTo((indexRef.current - 1 + sounds.length) % sounds.length),
+    prev: () =>
+      switchTo((indexRef.current - 1 + sounds.length) % sounds.length),
     setVolume: (volume: number) => {
       if (gainRef.current) gainRef.current.gain.value = volume;
     },

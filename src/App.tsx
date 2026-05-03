@@ -4,7 +4,6 @@ import * as THREE from "three";
 import { useState, useEffect, useRef } from "react";
 import { sounds } from "./data/sounds";
 import { useAudio } from "./hooks/useAudio";
-import WaveCanvas from "./components/WaveCanvas";
 import PlayerBar from "./components/PlayerBar";
 
 extend(THREE);
@@ -70,16 +69,18 @@ function hexToRgb(hex: string) {
 function rgbToHex(r: number, g: number, b: number) {
   return (
     "#" +
-    [r, g, b]
-      .map((v) => Math.round(v).toString(16).padStart(2, "0"))
-      .join("")
+    [r, g, b].map((v) => Math.round(v).toString(16).padStart(2, "0")).join("")
   );
 }
 
 function lerpColor(from: string, to: string, t: number) {
   const f = hexToRgb(from);
   const e = hexToRgb(to);
-  return rgbToHex(f.r + (e.r - f.r) * t, f.g + (e.g - f.g) * t, f.b + (e.b - f.b) * t);
+  return rgbToHex(
+    f.r + (e.r - f.r) * t,
+    f.g + (e.g - f.g) * t,
+    f.b + (e.b - f.b) * t,
+  );
 }
 
 function easeInOut(t: number) {
@@ -87,19 +88,12 @@ function easeInOut(t: number) {
 }
 
 function App() {
-  const {
-    analyserRef,
-    isPlaying,
-    currentSound,
-    pause,
-    resume,
-    next,
-    prev,
-    setVolume,
-  } = useAudio(sounds, DEFAULT_INDEX);
+  const { isPlaying, currentSound, pause, resume, next, prev, setVolume } =
+    useAudio(sounds, DEFAULT_INDEX);
 
   const initialColors = GRADIENT_THEMES[currentSound.id] ?? GRADIENT_THEMES[4];
-  const [animatedColors, setAnimatedColors] = useState<GradientColors>(initialColors);
+  const [animatedColors, setAnimatedColors] =
+    useState<GradientColors>(initialColors);
   const currentColorsRef = useRef<GradientColors>(initialColors);
   const rafRef = useRef<number>(0);
 
@@ -133,7 +127,6 @@ function App() {
         <ShaderGradient {...BASE_GRADIENT_PROPS} {...animatedColors} />
       </ShaderGradientCanvas>
 
-      <WaveCanvas analyserRef={analyserRef} />
       <PlayerBar
         soundName={currentSound.name}
         isPlaying={isPlaying}
